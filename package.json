@@ -1,0 +1,60 @@
+{
+  "name": "react-shorten",
+  "version": "1.0.0",
+  "description": "React Read More base and web (HTML) component",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lucasbasquerotto/react-read-more.git"
+  },
+  "homepage": "https://lucasbasquerotto.github.io/react-read-more",
+  "license": "MIT",
+  "keywords": [
+    "typescript",
+    "react",
+    "starter"
+  ],
+  "source": "./src/index.ts",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/esm/index.d.ts",
+  "files": [
+    "/dist"
+  ],
+  "peerDependencies": {
+    "react": ">= 17.0.0",
+    "react-dom": ">= 17.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "18.0.34",
+    "@types/react-dom": "18.0.11",
+    "@typescript-eslint/eslint-plugin": "6.15.0",
+    "@typescript-eslint/parser": "6.15.0",
+    "eslint": "8.56.0",
+    "eslint-config-react-app": "7.0.1",
+    "eslint-plugin-import": "2.25.4",
+    "eslint-plugin-jsx-a11y": "6.5.1",
+    "eslint-plugin-prettier": "5.1.1",
+    "eslint-plugin-react": "7.28.0",
+    "eslint-plugin-react-hooks": "4.3.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "typescript": "5.3.3"
+  },
+  "overrides": {
+    "typescript": "5.3.3"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "npm run build:esm && npm run build:cjs",
+    "build:esm": "tsc",
+    "build:cjs": "tsc --module commonjs --outDir dist/cjs",
+    "test": "react-scripts test --env=jsdom -- --watchAll=false",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}
