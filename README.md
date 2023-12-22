@@ -11,7 +11,8 @@
 <p align="center">
   <a href="#quickstart">Quickstart</a> |
   <a href="https://github.com/lucasbasquerotto/react-read-more/tree/master/examples/src/app.tsx">Examples</a> |
-  <a href="https://lucasbasquerotto.github.io/react-read-more">Demo</a>
+  <a href="https://lucasbasquerotto.github.io/react-read-more">Demo</a> |
+  <a href="https://snack.expo.dev/@lucas99freelas/react-shorten">Native Demo</a>  
 </p>
 
 ### Features
@@ -20,21 +21,19 @@
 -   Component `ReadMoreWeb` that can be used directly in react-dom, only requiring the length to truncate and the text itself, removing the need to handle the `expanded` state of the base component.
 -   The truncation is based on the number of characters and allows limiting React components children length (string), even if the top children are not a string (this allows, for example, the input "text" to be a react code instead of requiring it to be a plain string).
 
-### Important
+---
+
+**IMPORTANT**
 
 The truncation is done traversing the children of the `ReadMore` component from top to bottom, from start to end, traversing the children of those components until reaching the leaves, that can be either strings or components without children.
 
 This means that the text can be scattered across several components, but must be in the children property of those components (and not in a custom property like `text` or something else).
 
----
-
-**IMPORTANT**
-
 All descendants that generate text to be displayed should be able to be reached traversing only the `children` props of the descendants of the `ReadMore` component.
 
----
-
 The descendants of the `ReadMore` component can have other props other than `children` as long as they don't display text.
+
+---
 
 ### Install
 
@@ -234,6 +233,66 @@ export default ReadMoreWeb;
 
 This library does not provides a native component (so as to not have react-native as a dependency), but it can be easily created just like the web/html example above, just changing the buttons to native components like `Pressable` (or even `Text`) with `onPress` or another press/tap event handler of your preference.
 
-### Demo
+The following code is the implementation of the `ReadMoreNative` component in the [react-native demo](https://snack.expo.dev/@lucas99freelas/react-shorten). It can be used as a reference when implementing a native component:
 
-You can see a live web (react-dom) demo [here](https://lucasbasquerotto.github.io/react-read-more).
+```tsx
+import React from 'react';
+import { ReadMore } from 'react-shorten';
+import type { StyleProp, TextStyle } from 'react-native';
+import { Text } from 'react-native';
+
+interface ReadMoreNativeProps {
+    truncate: number | undefined;
+    showMoreText?: React.ReactNode;
+    showLessText?: React.ReactNode;
+    style?: StyleProp<TextStyle>;
+    btnStyle?: StyleProp<TextStyle>;
+    children: React.ReactNode;
+}
+
+const ReadMoreNative: React.FC<ReadMoreNativeProps> = ({
+    truncate,
+    showMoreText,
+    showLessText,
+    style,
+    btnStyle,
+    children,
+}) => {
+    const [expanded, setExpanded] = React.useState(false);
+
+    const onShowMore = React.useCallback(() => setExpanded(true), []);
+
+    const onShowLess = React.useCallback(() => setExpanded(false), []);
+
+    return (
+        <ReadMore
+            truncate={truncate}
+            expanded={expanded}
+            showMore={
+                <Text style={style}>
+                    {'... '}
+                    <Text onPress={onShowMore} style={btnStyle}>
+                        {showMoreText ?? 'Show more'}
+                    </Text>
+                </Text>
+            }
+            showLess={
+                <Text style={style}>
+                    {' '}
+                    <Text onPress={onShowLess} style={btnStyle}>
+                        {showLessText ?? 'Show less'}
+                    </Text>
+                </Text>
+            }
+        >
+            {children}
+        </ReadMore>
+    );
+};
+
+export default ReadMoreNative;
+```
+
+### Demos
+
+You can see a live web (react-dom) demo [here](https://lucasbasquerotto.github.io/react-read-more) and a react-native demo [here](https://snack.expo.dev/@lucas99freelas/react-shorten).
