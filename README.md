@@ -12,7 +12,7 @@
   <a href="#quickstart">Quickstart</a> |
   <a href="https://github.com/lucasbasquerotto/react-read-more/tree/master/examples/src/app.tsx">Examples</a> |
   <a href="https://lucasbasquerotto.github.io/react-read-more">Demo</a> |
-  <a href="https://snack.expo.dev/@lucas99freelas/react-shorten">Native Demo</a>  
+  <a href="https://snack.expo.dev/@lucasbasquerotto/react-shorten">Native Demo</a>  
 </p>
 
 ### Features
@@ -233,7 +233,7 @@ export default ReadMoreWeb;
 
 This library does not provides a native component (so as to not have react-native as a dependency), but it can be easily created just like the web/html example above, just changing the buttons to native components like `Pressable` (or even `Text`) with `onPress` or another press/tap event handler of your preference.
 
-The following code is the implementation of the `ReadMoreNative` component in the [react-native demo](https://snack.expo.dev/@lucas99freelas/react-shorten). It can be used as a reference when implementing a native component:
+The following code is the implementation of the `ReadMoreNative` component in the [react-native demo](https://snack.expo.dev/@lucasbasquerotto/react-shorten). It can be used as a reference when implementing a native component:
 
 ```tsx
 import React from 'react';
@@ -295,4 +295,4 @@ export default ReadMoreNative;
 
 ### Demos
 
-You can see a live web (react-dom) demo [here](https://lucasbasquerotto.github.io/react-read-more) and a react-native demo [here](https://snack.expo.dev/@lucas99freelas/react-shorten).
+You can see a live web (react-dom) demo [here](https://lucasbasquerotto.github.io/react-read-more) and a react-native demo [here](https://snack.expo.dev/@lucasbasquerotto/react-shorten).
