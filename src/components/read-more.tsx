@@ -1,9 +1,9 @@
 import React from 'react';
 
-type ParseResult = {
+interface ParseResult {
 	content: React.ReactNode | React.ReactNode[];
 	remaining: number;
-};
+}
 
 type Parse = (root: ParseResult, parse: Parse) => ParseResult;
 
@@ -16,8 +16,8 @@ const parseString = (text: string, remaining: number): ParseResult => {
 		remaining <= 0
 			? ''
 			: text.length > remaining
-			? text.substring(0, remaining)
-			: text;
+				? text.substring(0, remaining)
+				: text;
 
 	return { content: newText, remaining: remaining - text.length };
 };
