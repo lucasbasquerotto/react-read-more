@@ -3,11 +3,16 @@ import React from 'react';
 interface ParseResult {
 	content: React.ReactNode | React.ReactNode[];
 	remaining: number;
+	endTruncate: string;
 }
 
 type Parse = (root: ParseResult, parse: Parse) => ParseResult;
 
-const parseString = (text: string, remaining: number): ParseResult => {
+const parseString = (
+	text: string,
+	remaining: number,
+	endTruncate: string,
+): ParseResult => {
 	if (!text?.length) {
 		return { content: text, remaining };
 	}
@@ -16,17 +21,17 @@ const parseString = (text: string, remaining: number): ParseResult => {
 		remaining <= 0
 			? ''
 			: text.length > remaining
-				? text.substring(0, remaining)
+				? text.substring(0, remaining) + endTruncate
 				: text;
 
 	return { content: newText, remaining: remaining - text.length };
 };
 
 const parse: Parse = (root, parseCallback) => {
-	const { content, remaining = 0 } = root;
+	const { content, remaining = 0, endTruncate = '' } = root;
 
 	if (typeof content === 'string') {
-		const result = parseString(content, remaining);
+		const result = parseString(content, remaining, endTruncate);
 		return result;
 	} else if (React.isValidElement(content)) {
 		const children = (content.props as { children?: React.ReactNode })
@@ -37,6 +42,7 @@ const parse: Parse = (root, parseCallback) => {
 				{
 					content: children,
 					remaining,
+					endTruncate,
 				},
 				parseCallback,
 			);
@@ -49,7 +55,7 @@ const parse: Parse = (root, parseCallback) => {
 
 		for (const child of content) {
 			const parsed = parseCallback(
-				{ content: child, remaining: newRemaining },
+				{ content: child, remaining: newRemaining, endTruncate },
 				parseCallback,
 			);
 			newRemaining = parsed.remaining;
@@ -63,7 +69,7 @@ const parse: Parse = (root, parseCallback) => {
 			}
 		}
 
-		return { content: list, remaining: newRemaining };
+		return { content: list, remaining: newRemaining, endTruncate };
 	}
 
 	return root;
@@ -73,6 +79,7 @@ export interface ReadMoreAdditionalProps {
 	expanded?: boolean;
 	showMore?: React.ReactNode;
 	showLess?: React.ReactNode;
+	endTruncate?: string;
 }
 
 const ReadMoreInner: React.FC<
@@ -80,10 +87,11 @@ const ReadMoreInner: React.FC<
 		children: React.ReactNode;
 		truncate: number;
 	} & ReadMoreAdditionalProps
-> = ({ truncate, expanded, showMore, showLess, children }) => {
+> = ({ truncate, expanded, showMore, showLess, children, endTruncate }) => {
 	const root: ParseResult = {
 		content: children,
 		remaining: truncate,
+		endTruncate,
 	};
 	const result = parse(root, parse);
 

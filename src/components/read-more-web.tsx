@@ -1,5 +1,6 @@
+import type { CSSProperties } from 'react';
+import React from 'react';
 import { ReadMore } from './read-more';
-import React, { CSSProperties } from 'react';
 
 export interface ReadMoreWebProps {
 	truncate: number | undefined;
@@ -8,6 +9,7 @@ export interface ReadMoreWebProps {
 	className?: string;
 	style?: CSSProperties;
 	children: React.ReactNode;
+	endTruncate?: string;
 }
 
 export const ReadMoreWeb: React.FC<ReadMoreWebProps> = ({
@@ -17,6 +19,7 @@ export const ReadMoreWeb: React.FC<ReadMoreWebProps> = ({
 	className,
 	style,
 	children,
+	endTruncate,
 }) => {
 	const [expanded, setExpanded] = React.useState(false);
 
@@ -27,6 +30,7 @@ export const ReadMoreWeb: React.FC<ReadMoreWebProps> = ({
 	return (
 		<ReadMore
 			truncate={truncate}
+			endTruncate={endTruncate}
 			expanded={expanded}
 			showMore={
 				<>
