@@ -4,12 +4,14 @@ import React from 'react';
 
 const StyledReadMore: React.FC<{
 	truncate?: number;
+	endTruncate?: string;
 	children: React.ReactNode;
-}> = ({ truncate, children }) => (
+}> = ({ truncate, endTruncate, children }) => (
 	<ReadMoreWeb
 		truncate={truncate}
 		showMoreText="Show more"
 		showLessText="Show less"
+		endTruncate={endTruncate}
 		className="read-more-btn"
 	>
 		{children}
@@ -115,6 +117,26 @@ export default function App() {
 
 				<div className="content">
 					<StyledReadMore truncate={110}>
+						Lorem ipsum dolor sit amet,{' '}
+						<a href="http://localhost:3000" className="link">
+							consectetur adipiscing elit. Sed ullamcorper, odio eu aliquam
+							ultricies, enim sapien aliquet arcu, quis aliquam diam massa eu
+							nisl. Sed vitae nunc eget nunc ullamcorper aliquet.
+						</a>{' '}
+						Sed euismod, nisl eget aliquam ultricies, justo nisl aliquet nunc,
+						quis aliquam diam massa eu nisl. Sed vitae nunc eget nunc
+						ullamcorper aliquet.
+					</StyledReadMore>
+				</div>
+			</div>
+
+			<div className="section" data-testid="end-truncate">
+				<h2 className="title">
+					Truncated text with content inside the last tag
+				</h2>
+
+				<div className="content">
+					<StyledReadMore truncate={110} endTruncate="...">
 						Lorem ipsum dolor sit amet,{' '}
 						<a href="http://localhost:3000" className="link">
 							consectetur adipiscing elit. Sed ullamcorper, odio eu aliquam

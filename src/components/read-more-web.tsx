@@ -34,7 +34,7 @@ export const ReadMoreWeb: React.FC<ReadMoreWebProps> = ({
 			expanded={expanded}
 			showMore={
 				<>
-					{'... '}
+					{endTruncate ? undefined : '... '}
 					<button onClick={onShowMore} className={className} style={style}>
 						{showMoreText ?? 'Show more'}
 					</button>

@@ -293,6 +293,14 @@ const ReadMoreNative: React.FC<ReadMoreNativeProps> = ({
 export default ReadMoreNative;
 ```
 
+### Truncated text with content inside the last tag
+
+You can define the text to show after a truncated text inside the last tag (instead of outside it) with the `endTruncate` property.
+
+For example, if the truncated text ends with a link, and you define `endTruncate="..."`, the truncated link will end with `...` as part of the link, instead of outside it.
+
+See section `Truncated text with content inside the last tag` in the demo.
+
 ### Demos
 
 You can see a live web (react-dom) demo [here](https://lucasbasquerotto.github.io/react-read-more) and a react-native demo [here](https://snack.expo.dev/@lucasbasquerotto/react-shorten).

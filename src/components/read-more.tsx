@@ -3,7 +3,7 @@ import React from 'react';
 interface ParseResult {
 	content: React.ReactNode | React.ReactNode[];
 	remaining: number;
-	endTruncate: string;
+	endTruncate?: string;
 }
 
 type Parse = (root: ParseResult, parse: Parse) => ParseResult;
